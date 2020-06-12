@@ -1,5 +1,0 @@
-http::/naver.com
-https::/naver.com
-httpa
-httpz
-httpp

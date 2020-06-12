@@ -1,16 +1,14 @@
 package me.sun.notification_service;
 
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.slack.SlackNotificationService;
-import me.sun.notification_service.slack.dto.Attachment;
-import me.sun.notification_service.slack.dto.Field;
+import me.sun.notification_service.notification.slack.SlackNotificationService;
+import me.sun.notification_service.notification.slack.dto.Attachment;
+import me.sun.notification_service.notification.slack.dto.Field;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Component
 @RequiredArgsConstructor
 public class Client implements ApplicationRunner {
     final String URL = "https://hooks.slack.com/services/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";

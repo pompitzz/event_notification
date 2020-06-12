@@ -1,4 +1,4 @@
-package me.sun.notification_service.slack.dto;
+package me.sun.notification_service.notification.slack.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

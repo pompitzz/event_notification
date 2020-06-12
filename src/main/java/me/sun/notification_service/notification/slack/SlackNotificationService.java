@@ -1,19 +1,22 @@
-package me.sun.notification_service.slack;
+package me.sun.notification_service.notification.slack;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.slack.dto.Attachment;
-import me.sun.notification_service.slack.dto.SlackNotificationPayload;
+import me.sun.notification_service.crawler.NotificationMessage;
+import me.sun.notification_service.notification.NotificationService;
+import me.sun.notification_service.notification.slack.dto.Attachment;
+import me.sun.notification_service.notification.slack.dto.SlackNotificationPayload;
+import me.sun.notification_service.schedule.NotificationInformation;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
-public class SlackNotificationService {
+@RequiredArgsConstructor
+public class SlackNotificationService implements NotificationService {
 
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
@@ -37,5 +40,10 @@ public class SlackNotificationService {
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("Json 데이터로 파싱할 수 없습니다.", e);
         }
+    }
+
+    @Override
+    public void sendMessage(NotificationInformation notificationInformation, NotificationMessage notificationMessage) {
+        sendMessage(notificationInformation.destination(), notificationMessage.toSlackMessage());
     }
 }
