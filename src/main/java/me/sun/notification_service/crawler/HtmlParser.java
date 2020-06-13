@@ -1,11 +1,11 @@
-package me.sun.notification_service.crawler.search;
+package me.sun.notification_service.crawler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class JsoupWarpper {
+public class HtmlParser {
     public static Document get(String url) {
         try {
             return Jsoup.connect(url).get();

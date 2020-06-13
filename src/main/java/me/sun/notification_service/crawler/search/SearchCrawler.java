@@ -3,6 +3,7 @@ package me.sun.notification_service.crawler.search;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import me.sun.notification_service.crawler.HtmlParser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -26,7 +27,7 @@ public class SearchCrawler {
         List<Content> result = new ArrayList<>();
 
         final String searchUrl = this.searchUrl + topic;
-        final Document document = JsoupWarpper.get(searchUrl);
+        final Document document = HtmlParser.get(searchUrl);
         for (Element contentWrapper : document.select(contentWrapperListing)) {
             final String title = contentWrapper.select(titleTag).text();
             final String articleUrl = contentWrapper.select(articleUrlTag).attr("href");
