@@ -1,4 +1,4 @@
-package me.sun.notification_service.service;
+package me.sun.notification_service.service.schedule;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package me.sun.notification_service;
 
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.service.TaskExecutorSample;
+import me.sun.notification_service.service.schedule.TaskExecutorSample;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

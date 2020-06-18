@@ -1,4 +1,4 @@
-package me.sun.notification_service.service;
+package me.sun.notification_service.service.schedule;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
