@@ -1,12 +1,11 @@
 package me.sun.notification_service.utils;
 
-import me.sun.notification_service.crawler.Parameter;
+import me.sun.notification_service.service.http.Parameter;
+import me.sun.notification_service.service.http.ParameterBuilder;
+import me.sun.notification_service.service.http.Parameterizable;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +17,11 @@ public class UrlUtils {
     public static String encode(String url) {
 //        return URLEncoder.encode(url, StandardCharsets.UTF_8);
         return url;
+    }
+
+    public static <T extends Parameterizable> String buildUrl(String url, T target) {
+        List<Parameter> parameters = ParameterBuilder.buildParameter(target);
+        return buildUrl(url, parameters);
     }
 
     public static String buildUrl(String url, List<Parameter> parameters) {

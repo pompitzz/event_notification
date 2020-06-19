@@ -3,7 +3,7 @@ package me.sun.notification_service.crawler.search;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import me.sun.notification_service.crawler.HtmlParser;
+import me.sun.notification_service.crawler.util.HtmlParser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 

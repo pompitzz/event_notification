@@ -1,4 +1,4 @@
-package me.sun.notification_service.crawler;
+package me.sun.notification_service.crawler.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

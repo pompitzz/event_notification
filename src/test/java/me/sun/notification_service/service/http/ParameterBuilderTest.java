@@ -1,7 +1,5 @@
 package me.sun.notification_service.service.http;
 
-import me.sun.notification_service.Parameterizable;
-import me.sun.notification_service.crawler.Parameter;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package me.sun.notification_service.crawler;
+package me.sun.notification_service.service.http;
 
 import lombok.Builder;
 import lombok.Getter;

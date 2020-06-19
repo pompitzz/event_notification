@@ -1,15 +1,11 @@
 package me.sun.notification_service.service.http;
 
 import lombok.extern.slf4j.Slf4j;
-import me.sun.notification_service.Parameterizable;
-import me.sun.notification_service.crawler.Parameter;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
 @Slf4j
-@Component
 public class ParameterBuilder {
 
     private static final Set<Class<?>> parameterizableTypes = new HashSet<>();
@@ -19,11 +15,11 @@ public class ParameterBuilder {
         parameterizableTypes.addAll(classes);
     }
 
-    public <T extends Parameterizable> List<Parameter> buildParameter(T target) {
+    public static <T extends Parameterizable> List<Parameter> buildParameter(T target) {
         return build(target, new ArrayList<>());
     }
 
-    private <T extends Parameterizable> List<Parameter> build(T target, List<Parameter> parameters) {
+    private static <T extends Parameterizable> List<Parameter> build(T target, List<Parameter> parameters) {
         Class<? extends Parameterizable> targetClass = target.getClass();
         for (Field field : targetClass.getDeclaredFields()) {
             addParameter(target, field, parameters);
@@ -31,7 +27,7 @@ public class ParameterBuilder {
         return parameters;
     }
 
-    private <T extends Parameterizable> void addParameter(T target, Field field, List<Parameter> parameters) {
+    private static <T extends Parameterizable> void addParameter(T target, Field field, List<Parameter> parameters) {
         if (parameterizableTypes.contains(field.getType())) {
             try {
                 field.setAccessible(true);

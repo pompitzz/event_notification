@@ -1,7 +1,7 @@
 package me.sun.notification_service.schedule;
 
 import me.sun.notification_service.crawler.NotificationMessage;
-import me.sun.notification_service.domain.Member;
+import me.sun.notification_service.domain.member.Member;
 import me.sun.notification_service.notification.NotificationService;
 
 public class NotificationInformation {

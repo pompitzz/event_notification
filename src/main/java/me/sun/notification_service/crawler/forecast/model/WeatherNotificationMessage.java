@@ -1,4 +1,4 @@
-package me.sun.notification_service.crawler.weather;
+package me.sun.notification_service.crawler.forecast.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

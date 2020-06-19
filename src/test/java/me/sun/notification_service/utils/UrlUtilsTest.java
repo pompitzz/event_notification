@@ -1,12 +1,12 @@
 package me.sun.notification_service.utils;
 
-import me.sun.notification_service.crawler.Parameter;
+import me.sun.notification_service.service.http.Parameter;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UrlUtilsTest {
     @Test

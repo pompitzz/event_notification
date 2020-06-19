@@ -8,6 +8,10 @@ import me.sun.notification_service.notification.NotificationService;
 import me.sun.notification_service.notification.slack.dto.Attachment;
 import me.sun.notification_service.notification.slack.dto.SlackNotificationPayload;
 import me.sun.notification_service.schedule.NotificationInformation;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,16 +25,19 @@ public class SlackNotificationService implements NotificationService {
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
-    public String sendMessage(String url, SlackNotificationPayload payload){
+    public String sendMessage(String url, SlackNotificationPayload payload) {
         final String requestJson = formatToJson(payload);
-        return restTemplate.postForObject(url, requestJson, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> httpEntity = new HttpEntity<>(requestJson, headers);
+        return restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class).getBody();
     }
 
-    public String sendMessage(String url, Attachment attachment){
+    public String sendMessage(String url, Attachment attachment) {
         return sendMessage(url, new SlackNotificationPayload(Collections.singletonList(attachment)));
     }
 
-    public String sendMessage(String url, List<Attachment> attachments){
+    public String sendMessage(String url, List<Attachment> attachments) {
         return sendMessage(url, new SlackNotificationPayload(attachments));
     }
 

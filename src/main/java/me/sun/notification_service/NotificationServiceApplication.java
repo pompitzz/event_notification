@@ -1,6 +1,7 @@
 package me.sun.notification_service;
 
 import lombok.RequiredArgsConstructor;
+import me.sun.notification_service.crawler.forecast.ForecastAdapter;
 import me.sun.notification_service.service.schedule.TaskExecutorSample;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,15 +17,19 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class NotificationServiceApplication {
 
     private final TaskExecutorSample taskExecutorSample;
+    private final ForecastAdapter forecastAdapter;
 
     public static void main(String[] args) {
         SpringApplication.run(NotificationServiceApplication.class, args);
-
     }
 
     @Bean
     public ApplicationRunner runner() {
-        return args -> taskExecutorSample.printMessage();
+        return args -> {
+            taskExecutorSample.printMessage();
+//            List<ForecastResponse> request = forecastAdapter.request(LocalTime.of(3, 0), Location.A);
+//            System.out.println(request);
+        };
     }
 
 }

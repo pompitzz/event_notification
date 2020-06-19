@@ -1,4 +1,4 @@
-package me.sun.notification_service.crawler.weather.dto.request;
+package me.sun.notification_service.crawler.forecast.dto.request;
 
 
 import lombok.Getter;

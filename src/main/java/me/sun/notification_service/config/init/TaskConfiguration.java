@@ -1,4 +1,4 @@
-package me.sun.notification_service.config;
+package me.sun.notification_service.config.init;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
