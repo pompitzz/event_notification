@@ -23,9 +23,9 @@ public class ForecastAdapter implements Adapter {
     private final ForecastProperty forecastProperty;
     private final RestTemplate restTemplate;
 
-    public List<ForecastResponse> request(LocalTime time, String nx, String ny) {
+    public List<ForecastResponse> request(LocalTime time, String nx, String ny, int size) {
         final String timeStr = ForecastTime.findOptimalForecastTime(time).timeString();
-        var param = ForecastRequestParam.build(forecastProperty.getServiceKey(), timeStr, nx, ny);
+        var param = ForecastRequestParam.build(forecastProperty.getServiceKey(), timeStr, nx, ny, size);
 
         String url = UrlUtils.buildUrl(forecastProperty.getBaseUrl(), param);
         System.out.println(url);

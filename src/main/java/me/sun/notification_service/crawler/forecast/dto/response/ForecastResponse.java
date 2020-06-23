@@ -22,9 +22,11 @@ public class ForecastResponse {
     private String ny;
 
     public Forecast toEntity(Town town) {
+        final LocalDateTime localDateTime = toLocalDateTime(fcstDate, fcstTime);
         return Forecast.builder()
                 .forecastCategory(ForecastCategory.valueOf(category))
-                .forecastDateTime(toLocalDateTime(fcstDate, fcstTime))
+                .forecastDate(localDateTime.toLocalDate())
+                .forecastTime(localDateTime.toLocalTime())
                 .measureValue(fcstValue)
                 .town(town)
                 .build();
@@ -40,4 +42,18 @@ public class ForecastResponse {
         LocalDateTime parse = LocalDateTime.parse("202006161111", DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         System.out.println(parse);
     }
+
+//    @Override
+//    public String toString() {
+//        final LocalDateTime baseLocalDateTime = toLocalDateTime(baseDate, baseTime);
+//        final LocalDateTime fcstLocalDateTime = toLocalDateTime(fcstDate, fcstTime);
+//        final ForecastCategory forecastCategory = ForecastCategory.valueOf(category);
+//        return String.format(
+//                "발표 시각: %s\n" +
+//                        "측정 시각: %s\n" +
+//                        "카테고리: %s\n" +
+//                        "측정값: %s%s",
+//                baseLocalDateTime, fcstLocalDateTime, forecastCategory.getDescription(), this.fcstValue, forecastCategory.getUnit());
+//
+//    }
 }

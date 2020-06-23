@@ -1,14 +1,13 @@
 package me.sun.notification_service.notification.slack.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
-@AllArgsConstructor
-@Builder
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Attachment {
     private String color;
     private String pretext;
@@ -24,4 +23,11 @@ public class Attachment {
     private String footer;
     private String footer_icon;
     private String ts;
+
+    public static Attachment build(List<Field> fields, String color) {
+        final Attachment attachment = new Attachment();
+        attachment.fields = fields;
+        attachment.color = color;
+        return attachment;
+    }
 }

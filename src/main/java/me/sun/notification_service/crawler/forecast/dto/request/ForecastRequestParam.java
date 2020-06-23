@@ -8,20 +8,21 @@ import java.time.LocalDate;
 public class ForecastRequestParam implements Parameterizable {
     private String serviceKey;
     private Integer pageNo = 1;
-    private Integer numOfRows = 30;
+    private Integer numOfRows = 100;
     private String dataType = "JSON";
     private String base_date;
     private String base_time;
     private String nx;
     private String ny;
 
-    public static ForecastRequestParam build(String serviceKey, String time, String nx, String ny) {
+    public static ForecastRequestParam build(String serviceKey, String time, String nx, String ny, int size) {
         final ForecastRequestParam forecastRequestParam = new ForecastRequestParam();
         forecastRequestParam.serviceKey = serviceKey;
         forecastRequestParam.base_date = findDate(); //TODO change logic
         forecastRequestParam.base_time = time;
         forecastRequestParam.nx = nx;
         forecastRequestParam.ny = ny;
+        forecastRequestParam.numOfRows = size;
         return forecastRequestParam;
     }
 

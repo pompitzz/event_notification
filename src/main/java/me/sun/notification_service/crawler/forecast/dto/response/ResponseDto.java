@@ -5,7 +5,9 @@ import lombok.Getter;
 import me.sun.notification_service.crawler.forecast.model.ForecastCategory;
 import me.sun.notification_service.utils.StreamUtils;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -14,9 +16,8 @@ public class ResponseDto {
 
     public List<ForecastResponse> getForecast() {
         List<ForecastResponse> forecastResponses = this.response.getBody().getItems().getForecastResponses();
-        return StreamUtils.stream(forecastResponses)
-                .filter(response -> ForecastCategory.isContains(response.getCategory()))
-                .collect(Collectors.toList());
+        return Optional.ofNullable(forecastResponses)
+                .orElse(Collections.emptyList());
     }
 
 
