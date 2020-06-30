@@ -1,8 +1,8 @@
 package me.sun.notification_service.runner;
 
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.domain.town.Town;
-import me.sun.notification_service.domain.town.TownRepository;
+import me.sun.notification_service.core.domain.town.Town;
+import me.sun.notification_service.core.domain.town.TownRepository;
 import me.sun.reader.ReaderUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

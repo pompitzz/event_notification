@@ -1,14 +1,11 @@
 package me.sun.notification_service.web;
 
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.crawler.forecast.ForecastAdapter;
-import me.sun.notification_service.crawler.forecast.dto.response.ForecastResponse;
-import me.sun.notification_service.tasks.ForecastTaskFacade;
+import me.sun.notification_service.core.scheduler.tasks.ForecastTaskFacade;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

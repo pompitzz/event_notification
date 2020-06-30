@@ -1,4 +1,4 @@
-package me.sun.notification_service.notification
+package me.sun.notification_service.web.notification
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import me.sun.notification_service.notification.slack.SlackNotificationService

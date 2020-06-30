@@ -2,9 +2,9 @@ package me.sun.notification_service.runner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.crawler.forecast.dto.response.ForecastResponse;
-import me.sun.notification_service.crawler.forecast.dto.response.ResponseDto;
-import me.sun.notification_service.service.query.ForecastQueryService;
+import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;
+import me.sun.notification_service.core.crawling.forecast.dto.response.ResponseDto;
+import me.sun.notification_service.core.domain.forecast.ForecastQueryService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;

@@ -1,5 +1,8 @@
 package me.sun.notification_service.service.http;
 
+import me.sun.notification_service.infrastructure.Parameter;
+import me.sun.notification_service.infrastructure.ParameterBuilder;
+import me.sun.notification_service.infrastructure.Parameterizable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,7 +17,7 @@ class ParameterBuilderTest {
     @Test
     void parameterizable()throws Exception {
         RequestParam param = new RequestParam("Dexter", 25, null, 1000);
-        List<Parameter> parameters = parameterBuilder.buildParameter(param);
+        List<Parameter> parameters = parameterBuilder.build(param);
 
         assertThat(parameters.size()).isEqualTo(3);
         assertThat(parameters)
