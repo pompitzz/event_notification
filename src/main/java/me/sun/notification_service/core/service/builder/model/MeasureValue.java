@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
+import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
 import org.springframework.util.StringUtils;
 
 @Getter
@@ -22,7 +23,7 @@ public class MeasureValue {
                 .append(measureValue)
                 .append(category.getUnit());
 
-        if (isNotRainCategory() && !StringUtils.isEmpty(diffValueFromYesterday)) {
+        if (!ForecastCategory.isRain(category) && !StringUtils.isEmpty(diffValueFromYesterday)) {
             message.append("(")
                     .append(diffValueFromYesterday)
                     .append(")");
