@@ -1,7 +1,7 @@
 package me.sun.notification_service.web;
 
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.core.scheduler.tasks.ForecastTaskFacade;
+import me.sun.notification_service.core.scheduler.tasks.ForecastProcessor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,10 +11,9 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final ForecastTaskFacade forecastTaskFacade;
+    private final ForecastProcessor forecastProcessor;
 
     @RequestMapping
     public void print() {
-        forecastTaskFacade.run(LocalTime.of(8, 15), "62", "126");
     }
 }

@@ -1,12 +1,13 @@
-package me.sun.notification_service.core.domain.forecast;
+package me.sun.notification_service.core.domain.forecast.forecast;
 
 import lombok.*;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.town.Town;
+import me.sun.notification_service.core.domain.forecast.town.Town;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -32,6 +33,10 @@ public class Forecast {
     private Town town;
 
     public String diffMeasureValue(Forecast yesterday) {
+        if (Objects.isNull(yesterday)) {
+            return null;
+        }
+
         final double todayValue = Double.parseDouble(this.measureValue);
         final double yesterdayValue = Double.parseDouble(yesterday.measureValue);
         return String.valueOf(todayValue - yesterdayValue);

@@ -18,7 +18,7 @@ class UrlUtilsTest {
                 Parameter.builder().key("city").value("seoul").build()
         );
 
-        String urlWithParams = UrlUtils.buildUrl("http://naver.com", parameters);
+        String urlWithParams = UrlUtils.buildUrlWithEncode("http://naver.com", parameters);
         assertEquals(urlWithParams, answer);
     }
 }

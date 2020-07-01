@@ -2,12 +2,16 @@ package me.sun.notification_service.core.crawling.forecast.dto.request;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import me.sun.notification_service.core.domain.forecast.town.Town;
 
-public @Getter
+@Getter
 @RequiredArgsConstructor
-enum Location {
-    A("a", 1, 1);
+public class Location {
     private final String description;
-    private final Integer nx;
-    private final Integer ny;
+    private final String nx;
+    private final String ny;
+
+    public static Location build(Town town) {
+        return new Location(town.getFullAddress(), town.getLocationX(), town.getLocationY());
+    }
 }

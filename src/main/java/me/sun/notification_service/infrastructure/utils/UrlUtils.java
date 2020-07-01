@@ -3,9 +3,12 @@ package me.sun.notification_service.infrastructure.utils;
 import me.sun.notification_service.infrastructure.Parameter;
 import me.sun.notification_service.infrastructure.ParameterBuilder;
 import me.sun.notification_service.infrastructure.Parameterizable;
+import org.springframework.util.StringUtils;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,27 +18,33 @@ public class UrlUtils {
     }
 
     public static String encode(String url) {
-//        return URLEncoder.encode(url, StandardCharsets.UTF_8);
-        return url;
+        return URLEncoder.encode(url, StandardCharsets.UTF_8);
     }
 
-    public static <T extends Parameterizable> String buildUrl(String url, T target) {
+    public static <T extends Parameterizable> String buildUrl(String url, T target, boolean needParametersEncoding) {
         List<Parameter> parameters = ParameterBuilder.build(target);
-        return buildUrl(url, parameters);
+        return needParametersEncoding ? buildUrlWithEncode(url, parameters) : buildUrl(url, parameters);
+    }
+
+    public static String buildUrlWithEncode(String url, List<Parameter> parameters) {
+        final String query = StreamUtils.stream(parameters)
+                .map(param -> String.format("%s=%s", encode(param.getKey()), encode(param.getValue())))
+                .collect(Collectors.joining("&"));
+        return buildUrl(url, query);
     }
 
     public static String buildUrl(String url, List<Parameter> parameters) {
-        String params = StreamUtils.stream(parameters)
-                .map(UrlUtils::query)
+        final String query = StreamUtils.stream(parameters)
+                .map(param -> String.format("%s=%s", param.getKey(), param.getValue()))
                 .collect(Collectors.joining("&"));
-        return url + "?" + params;
+        return buildUrl(url, query);
     }
 
-    static String query(Parameter parameter) {
-        return String.format("%s=%s", encode(parameter.getKey()), encode(parameter.getValue()));
+    private static String buildUrl(String url, String query) {
+        if (StringUtils.isEmpty(query)) {
+            return url;
+        }
+        return url + "?" + query;
     }
 
-    //http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=Iyyt0N7%2BZJXHYNGM2uvMOpqW5N123G99dY9wVBWlXiGXUZxGpu8S86lj3RqLvOK%2BcYFsl1K3H53SuqAaXLC8sg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&base_date=20200618&base_time=0500&nx=1&ny=1&
-    //http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=Iyyt0N7%2BZJXHYNGM2uvMOpqW5N123G99dY9wVBWlXiGXUZxGpu8S86lj3RqLvOK%2BcYFsl1K3H53SuqAaXLC8sg%3D%3D&pageNo=1&numOfRows=30&dataType=JSON&base_date=20200618&base_time=0200&nx=1&ny=1
-    //http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?serviceKey=Iyyt0N7%25252BZJXHYNGM2uvMOpqW5N123G99dY9wVBWlXiGXUZxGpu8S86lj3RqLvOK%25252BcYFsl1K3H53SuqAaXLC8sg%25253D%25253D&pageNo=1&numOfRows=30&dataType=JSON&base_date=20200618&base_time=0200&nx=1&ny=1
 }

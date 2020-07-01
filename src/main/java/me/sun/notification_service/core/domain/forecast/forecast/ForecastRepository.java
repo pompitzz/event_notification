@@ -1,6 +1,6 @@
-package me.sun.notification_service.core.domain.forecast;
+package me.sun.notification_service.core.domain.forecast.forecast;
 
-import me.sun.notification_service.core.domain.town.Town;
+import me.sun.notification_service.core.domain.forecast.town.Town;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

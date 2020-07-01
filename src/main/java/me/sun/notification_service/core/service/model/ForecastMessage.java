@@ -41,7 +41,7 @@ public class ForecastMessage {
         String title = String.format("%s | %s", locationInformation, forecastDate);
         final Attachment mainAttachemnt = Attachment.builder()
                 .title(title)
-                .title_link("http://naver.com")
+//                .title_link("http://naver.com")
                 .color("#36a64f")
                 .build();
 

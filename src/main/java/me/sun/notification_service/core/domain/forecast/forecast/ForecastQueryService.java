@@ -1,11 +1,11 @@
-package me.sun.notification_service.core.domain.forecast;
+package me.sun.notification_service.core.domain.forecast.forecast;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.town.Town;
-import me.sun.notification_service.core.domain.town.TownQueryService;
+import me.sun.notification_service.core.domain.forecast.town.Town;
+import me.sun.notification_service.core.domain.forecast.town.TownQueryService;
 import me.sun.notification_service.infrastructure.utils.StreamUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

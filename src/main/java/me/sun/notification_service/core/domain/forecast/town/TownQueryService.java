@@ -1,4 +1,4 @@
-package me.sun.notification_service.core.domain.town;
+package me.sun.notification_service.core.domain.forecast.town;
 
 import lombok.RequiredArgsConstructor;
 import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;

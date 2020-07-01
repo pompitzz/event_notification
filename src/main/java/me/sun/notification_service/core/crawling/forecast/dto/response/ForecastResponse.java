@@ -3,8 +3,8 @@ package me.sun.notification_service.core.crawling.forecast.dto.response;
 import lombok.Getter;
 import lombok.ToString;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.forecast.Forecast;
-import me.sun.notification_service.core.domain.town.Town;
+import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
+import me.sun.notification_service.core.domain.forecast.town.Town;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

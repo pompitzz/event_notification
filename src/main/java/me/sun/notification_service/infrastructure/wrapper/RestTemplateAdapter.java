@@ -1,14 +1,11 @@
-package me.sun.notification_service.core.crawling;
+package me.sun.notification_service.infrastructure.wrapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import me.sun.notification_service.infrastructure.ParameterBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -16,18 +13,19 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class CustomRestTemplate {
-    private static RestTemplate restTemplate = new RestTemplate();
-    private static ObjectMapper objectMapper = new ObjectMapper();
-    private static ParameterBuilder parameterBuilder = new ParameterBuilder();
+public class RestTemplateAdapter {
 
-    static {
-        DefaultUriBuilderFactory handler = new DefaultUriBuilderFactory();
-        handler.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
-        restTemplate.setUriTemplateHandler(handler);
+    private final RestTemplate restTemplate;
+
+    public <T> T requestAndGetBody(String url, Class<T> clazz) {
+        return restTemplate.exchange(url, HttpMethod.GET, null, clazz).getBody();
     }
 
-    public <T> List<T> getBody(String url, Class<T> clazz) {
+    public <T> List<T> requestAndGetList(String url, HttpMethod method, Class<T> clazz) {
+        return request(url, method, clazz).getBody();
+    }
+
+    public <T> List<T> requestAndGetList(String url, Class<T> clazz) {
         return request(url, HttpMethod.GET, clazz).getBody();
     }
 

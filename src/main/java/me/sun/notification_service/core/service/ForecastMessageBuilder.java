@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.forecast.Forecast;
+import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
 import me.sun.notification_service.core.service.model.ForecastMessage;
 import me.sun.notification_service.core.service.model.MeasureValue;
 import me.sun.notification_service.core.service.model.TimeMeasureValue;
@@ -82,15 +82,23 @@ public class ForecastMessageBuilder {
     }
 
     private boolean filteredOnlyHasYesterdayAndToday(List<Forecast> forecasts) {
-        if (forecasts.size() != 2) {
+        if (forecasts.size() > 2) {
             final List<Long> ids = forecasts.stream().map(Forecast::getForecastId).collect(Collectors.toList());
-            log.error("Forecast는 두개만 존재해야 한다. forecastIds: {}", ids);
+            log.error("Forecast는 두개를 초과할 수 없다. forecastIds: {}", ids);
             return false;
         }
         return true;
     }
 
     private ForecastWrapper sortAndBuild(List<Forecast> forecasts) {
+
+        if (forecasts.size() > 2) {
+            throw new IllegalArgumentException("Forecasts should be lower then 2");
+        }
+
+        if (forecasts.size() == 1) {
+            return new ForecastWrapper(null, forecasts.get(0));
+        }
         forecasts.sort(Comparator.comparing(Forecast::getForecastDate));
         return new ForecastWrapper(forecasts.get(0), forecasts.get(1));
     }
