@@ -24,9 +24,16 @@ public class Attachment {
     private String footer_icon;
     private String ts;
 
-    public static Attachment build(List<Field> fields, String color) {
+    public static Attachment from(List<Field> fields, String color) {
         final Attachment attachment = new Attachment();
         attachment.fields = fields;
+        attachment.color = color;
+        return attachment;
+    }
+
+    public static Attachment from(String title, String color) {
+        final Attachment attachment = new Attachment();
+        attachment.title = title;
         attachment.color = color;
         return attachment;
     }

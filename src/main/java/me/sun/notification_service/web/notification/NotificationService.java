@@ -1,5 +1,7 @@
 package me.sun.notification_service.web.notification;
 
+import me.sun.notification_service.web.notification.model.common.NotificationMessages;
+
 public interface NotificationService {
-    void sendMessage(NotificationInformation notificationInformation, NotificationMessage notificationMessage);
+    String sendMessage(NotificationMessages notificationMessages);
 }

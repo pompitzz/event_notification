@@ -1,13 +1,13 @@
-package me.sun.notification_service.core.service;
+package me.sun.notification_service.core.service.builder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
 import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
-import me.sun.notification_service.core.service.model.ForecastMessage;
-import me.sun.notification_service.core.service.model.MeasureValue;
-import me.sun.notification_service.core.service.model.TimeMeasureValue;
+import me.sun.notification_service.core.service.builder.model.ForecastResult;
+import me.sun.notification_service.core.service.builder.model.MeasureValue;
+import me.sun.notification_service.core.service.builder.model.TimeMeasureValue;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -21,13 +21,13 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class ForecastMessageBuilder {
-    public ForecastMessage build(List<Forecast> yesterdayForecasts, List<Forecast> todayForecasts) {
+public class ForecastResultBuilder {
+    public ForecastResult build(List<Forecast> yesterdayForecasts, List<Forecast> todayForecasts) {
         final Forecast forecast = todayForecasts.get(0);
         final String locationInformation = forecast.getTown().getFullAddress();
         final LocalDate date = forecast.getForecastDate();
 
-        return ForecastMessage.builder()
+        return ForecastResult.builder()
                 .locationInformation(locationInformation)
                 .forecastDate(date)
                 .timeMeasureValues(buildDetailMessage(yesterdayForecasts, todayForecasts))

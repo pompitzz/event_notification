@@ -1,14 +1,17 @@
 package me.sun.notification_service.core.crawling.forecast.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Getter
-public class ResponseDto {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ForecastResponseDto {
     private Response response;
 
     public List<ForecastResponse> getForecast() {

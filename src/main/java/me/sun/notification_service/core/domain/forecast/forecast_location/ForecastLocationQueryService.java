@@ -11,14 +11,14 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class TownQueryService {
+public class ForecastLocationQueryService {
 
-    private final TownRepository townRepository;
+    private final ForecastLocationRepository forecastLocationRepository;
 
-    public Town findTown(ForecastResponse forecastResponse) {
+    public ForecastLocation findTown(ForecastResponse forecastResponse) {
         final String nx = forecastResponse.getNx();
         final String ny = forecastResponse.getNy();
-        final List<Town> result = townRepository.findByLocationXAndLocationY(nx, ny);
+        final List<ForecastLocation> result = forecastLocationRepository.findByLocationXAndLocationY(nx, ny);
         return Optional.ofNullable(result.get(0))
                 .orElseThrow(() -> new IllegalArgumentException(String.format("nx: %s, ny: %s", nx, ny)));
     }

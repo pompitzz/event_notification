@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Town {
+public class ForecastLocation {
     @Id
     @Column(name = "town_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,8 +5,9 @@ import me.sun.notification_service.core.crawling.forecast.dto.request.ForecastRe
 import me.sun.notification_service.core.crawling.forecast.dto.request.ForecastTime;
 import me.sun.notification_service.core.crawling.forecast.dto.request.Location;
 import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;
-import me.sun.notification_service.core.crawling.forecast.dto.response.ResponseDto;
+import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponseDto;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastProperty;
+import me.sun.notification_service.core.crawling.forecast.model.ForecastRequestInfo;
 import me.sun.notification_service.infrastructure.utils.UrlUtils;
 import me.sun.notification_service.infrastructure.wrapper.RestTemplateAdapter;
 import org.springframework.stereotype.Service;
@@ -24,26 +25,26 @@ public class ForecastAdapter {
     private final ForecastProperty forecastProperty;
     private final RestTemplateAdapter restTemplateAdapter;
 
-    public List<ForecastResponse> request(LocalTime time, Location location, int size) {
+    public List<ForecastResponse> request(ForecastRequestInfo forecastRequestInfo) {
         final ForecastRequest forecastRequest = ForecastRequest.builder()
                 .serviceKey(forecastProperty.getServiceKey())
                 .base_date(findDate())
-                .base_time(findTime(time))
-                .nx(location.getNx())
-                .ny(location.getNy())
-                .numOfRows(size)
+                .base_time(findTime(forecastRequestInfo.getNotificationTime()))
+                .nx(forecastRequestInfo.getNx())
+                .ny(forecastRequestInfo.getNy())
+                .numOfRows(forecastRequestInfo.getSize())
                 .pageNo(1)
                 .dataType("JSON")
                 .build();
 
         String url = UrlUtils.buildUrl(forecastProperty.getBaseUrl(), forecastRequest, false);
 
-        ResponseDto responseDto = restTemplateAdapter.requestAndGetBody(url, ResponseDto.class);
-        return Objects.requireNonNull(responseDto).getForecast();
+        ForecastResponseDto forecastResponseDto = restTemplateAdapter.requestAndGetBody(url, ForecastResponseDto.class);
+        return Objects.requireNonNull(forecastResponseDto).getForecast();
     }
 
     private static String findDate() {
-        LocalDate date = LocalDate.now().minusDays(1);
+        LocalDate date = LocalDate.now();
         return StringUtils.replace(date.toString(), "-", "");
     }
 

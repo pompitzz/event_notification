@@ -3,10 +3,8 @@ package me.sun.notification_service.core.scheduler.tasks;
 import me.sun.notification_service.core.crawling.forecast.dto.request.Location;
 import me.sun.notification_service.core.domain.forecast.town.Town;
 import me.sun.notification_service.core.domain.forecast.town.TownRepository;
-import me.sun.notification_service.runner.TownCreateRunner;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalTime;

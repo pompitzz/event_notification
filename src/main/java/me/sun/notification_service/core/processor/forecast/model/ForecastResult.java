@@ -1,16 +1,13 @@
-package me.sun.notification_service.core.service.model;
+package me.sun.notification_service.core.service.builder.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.web.notification.SlackTemplate;
-import me.sun.notification_service.web.notification.SlackTemplateBuilder;
+import me.sun.notification_service.web.notification.model.slack.SlackTemplate;
+import me.sun.notification_service.web.notification.model.slack.SlackMessageBuilder;
 import me.sun.notification_service.web.notification.model.slack.dto.Attachment;
-import me.sun.notification_service.web.notification.model.slack.dto.Field;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @Getter
-public class ForecastMessage implements SlackTemplate {
+public class ForecastResult {
 
     private String locationInformation;
     private LocalDate forecastDate;
@@ -36,8 +33,12 @@ public class ForecastMessage implements SlackTemplate {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Attachment> createSlackAttachments(SlackTemplateBuilder builder) {
-        return builder.build(this);
+    public double highestRainPercent() {
+        return getRainMeasureValues().stream()
+                .map(MeasureValue::getMeasureValue)
+                .mapToDouble(Double::parseDouble)
+                .max()
+                .orElse(0);
+
     }
 }

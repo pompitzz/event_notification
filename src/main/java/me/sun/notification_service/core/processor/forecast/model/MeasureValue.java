@@ -1,4 +1,4 @@
-package me.sun.notification_service.core.service.model;
+package me.sun.notification_service.core.service.builder.model;
 
 
 import lombok.AllArgsConstructor;
@@ -41,8 +41,4 @@ public class MeasureValue {
         return !isRainCategory();
     }
 
-    public double getHigher(double yourValue) {
-        final double myValue = Double.parseDouble(this.measureValue);
-        return Math.max(myValue, yourValue);
-    }
 }
