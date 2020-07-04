@@ -11,7 +11,7 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForecastResponseDto {
+public class ForecastResponseWrapper {
     private Response response;
 
     public List<ForecastResponse> getForecast() {

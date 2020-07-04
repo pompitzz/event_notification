@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
 import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
-import me.sun.notification_service.core.domain.forecast.town.Town;
+import me.sun.notification_service.core.domain.forecast.forecast_location.ForecastLocation;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,19 +21,18 @@ public class ForecastResponse {
     private String nx;
     private String ny;
 
-    public Forecast toEntity(Town town) {
+    public Forecast toEntity(ForecastLocation forecastLocation) {
         final LocalDateTime localDateTime = toLocalDateTime(fcstDate, fcstTime);
         return Forecast.builder()
                 .forecastCategory(ForecastCategory.valueOf(category))
                 .forecastDate(localDateTime.toLocalDate())
                 .forecastTime(localDateTime.toLocalTime())
                 .measureValue(fcstValue)
-                .town(town)
+                .forecastLocation(forecastLocation)
                 .build();
     }
 
     private LocalDateTime toLocalDateTime(String date, String time) {
-        //202006181111
         String dateTime = date + time;
         return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
     }

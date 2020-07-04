@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UrlUtilsTest {
     @Test
-    void build_Url() throws Exception {
+    void buildUrlWithNonEncoding() throws Exception {
         String answer = "http://naver.com?name=Dexter&age=13&city=seoul";
         List<Parameter> parameters = Arrays.asList(
                 Parameter.builder().key("name").value("Dexter").build(),
@@ -18,7 +18,7 @@ class UrlUtilsTest {
                 Parameter.builder().key("city").value("seoul").build()
         );
 
-        String urlWithParams = UrlUtils.buildUrlWithEncode("http://naver.com", parameters);
+        String urlWithParams = UrlUtils.buildUrl("http://naver.com", parameters);
         assertEquals(urlWithParams, answer);
     }
 }

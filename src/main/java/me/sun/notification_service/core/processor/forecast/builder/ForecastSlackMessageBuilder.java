@@ -1,14 +1,15 @@
-package me.sun.notification_service.core.service.builder;
+package me.sun.notification_service.core.processor.forecast.builder;
 
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.service.builder.model.ForecastResult;
-import me.sun.notification_service.core.service.builder.model.MeasureValue;
-import me.sun.notification_service.core.service.builder.model.TimeMeasureValue;
+import me.sun.notification_service.core.domain.forecast.forecast_location.ForecastLocation;
+import me.sun.notification_service.core.processor.forecast.model.ForecastResult;
+import me.sun.notification_service.core.processor.forecast.model.MeasureValue;
+import me.sun.notification_service.core.processor.forecast.model.TimeMeasureValue;
 import me.sun.notification_service.infrastructure.utils.MessageUtils;
-import me.sun.notification_service.web.notification.model.slack.SlackArguments;
-import me.sun.notification_service.web.notification.model.slack.SlackMessageBuilder;
-import me.sun.notification_service.web.notification.model.slack.dto.Attachment;
-import me.sun.notification_service.web.notification.model.slack.dto.Field;
+import me.sun.notification_service.web.notification.NotificationMessageBuilder;
+import me.sun.notification_service.web.notification.slack.SlackArguments;
+import me.sun.notification_service.web.notification.slack.model.Attachment;
+import me.sun.notification_service.web.notification.slack.model.Field;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -16,9 +17,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ForecastSlackMessageBuilder implements SlackMessageBuilder<ForecastResult> {
+public class ForecastSlackMessageBuilder implements ForecastNotificationMessageBuilder<SlackArguments> {
+
     @Override
-    public SlackArguments build(ForecastResult forecastResult) {
+    public SlackArguments successMessageBuild(ForecastResult forecastResult) {
         final Attachment mainAttachment = Attachment.from(forecastResult.getTitle(), "#36a64f");
         final Attachment rainAttachment = rainAttachment(forecastResult.highestRainPercent());
         final Attachment measureAttachment = Attachment.from(measureFields(forecastResult.getTimeMeasureValues()), "#b61549");
@@ -37,7 +39,7 @@ public class ForecastSlackMessageBuilder implements SlackMessageBuilder<Forecast
         return Attachment.from(title, "#1a6d9e");
     }
 
-    public List<Field> measureFields(List<TimeMeasureValue> timeMeasureValues) {
+    private List<Field> measureFields(List<TimeMeasureValue> timeMeasureValues) {
         return timeMeasureValues.stream()
                 .map(this::buildMeasureField)
                 .collect(Collectors.toList());
@@ -54,5 +56,11 @@ public class ForecastSlackMessageBuilder implements SlackMessageBuilder<Forecast
                 .title(title)
                 .value(value)
                 .build();
+    }
+
+    @Override
+    public SlackArguments failMessageBuild(ForecastLocation forecastLocation) {
+        // TODO 체인지 필요
+        return null;
     }
 }

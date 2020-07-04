@@ -1,27 +1,17 @@
-package me.sun.notification_service.core.crawling.forecast.model;
+package me.sun.notification_service.core.crawling.forecast.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
-import me.sun.notification_service.core.crawling.forecast.dto.request.Location;
-import me.sun.notification_service.web.notification.model.common.NotificationType;
+import me.sun.notification_service.web.notification.NotificationType;
 
 import java.time.LocalTime;
 
 @Getter
+@Builder
 public class ForecastRequestInfo {
     private NotificationType notificationType;
-    private LocalTime notificationTime;
-    private Location location;
-    private int size;
+    private String locationDescription;
+    private String locationNx;
+    private String locationNy;
 
-    public String getNx() {
-        return location.getNx();
-    }
-
-    public String getNy() {
-        return location.getNy();
-    }
-
-    public String getDescription() {
-        return location.getDescription();
-    }
 }

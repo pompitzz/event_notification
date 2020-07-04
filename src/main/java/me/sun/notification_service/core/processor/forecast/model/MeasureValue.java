@@ -1,11 +1,10 @@
-package me.sun.notification_service.core.service.builder.model;
+package me.sun.notification_service.core.processor.forecast.model;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
 import org.springframework.util.StringUtils;
 
 @Getter

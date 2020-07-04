@@ -1,4 +1,4 @@
-package me.sun.notification_service.core.domain.forecast.town;
+package me.sun.notification_service.core.domain.forecast.forecast_location;
 
 import lombok.RequiredArgsConstructor;
 import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;
@@ -15,11 +15,9 @@ public class ForecastLocationQueryService {
 
     private final ForecastLocationRepository forecastLocationRepository;
 
-    public ForecastLocation findTown(ForecastResponse forecastResponse) {
-        final String nx = forecastResponse.getNx();
-        final String ny = forecastResponse.getNy();
-        final List<ForecastLocation> result = forecastLocationRepository.findByLocationXAndLocationY(nx, ny);
-        return Optional.ofNullable(result.get(0))
-                .orElseThrow(() -> new IllegalArgumentException(String.format("nx: %s, ny: %s", nx, ny)));
+    public ForecastLocation findByForecastLocationId(Long id) {
+        final Optional<ForecastLocation> forecastLocation = forecastLocationRepository.findById(id);
+        // TODO 에러 발생시 어떻게 할껀지
+        return forecastLocation.orElseThrow(() -> new IllegalArgumentException("잘못된 정보"));
     }
 }

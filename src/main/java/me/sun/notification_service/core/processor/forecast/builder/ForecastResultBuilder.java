@@ -1,13 +1,13 @@
-package me.sun.notification_service.core.service.builder;
+package me.sun.notification_service.core.processor.forecast.builder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
 import me.sun.notification_service.core.domain.forecast.forecast.Forecast;
-import me.sun.notification_service.core.service.builder.model.ForecastResult;
-import me.sun.notification_service.core.service.builder.model.MeasureValue;
-import me.sun.notification_service.core.service.builder.model.TimeMeasureValue;
+import me.sun.notification_service.core.processor.forecast.model.ForecastResult;
+import me.sun.notification_service.core.processor.forecast.model.MeasureValue;
+import me.sun.notification_service.core.processor.forecast.model.TimeMeasureValue;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 public class ForecastResultBuilder {
     public ForecastResult build(List<Forecast> yesterdayForecasts, List<Forecast> todayForecasts) {
         final Forecast forecast = todayForecasts.get(0);
-        final String locationInformation = forecast.getTown().getFullAddress();
+        final String locationInformation = forecast.getForecastLocation().getFullAddress();
         final LocalDate date = forecast.getForecastDate();
 
         return ForecastResult.builder()
@@ -53,7 +53,7 @@ public class ForecastResultBuilder {
         final List<MeasureValue> measureValues = forecastGroupingByCategory.values()
                 .stream()
                 .filter(this::filteredOnlyHasYesterdayAndToday)
-                .map(this::sortAndBuild)
+                .map(this::toForecastWrapper)
                 .map(this::buildMessage)
                 .collect(Collectors.toList());
 
@@ -90,7 +90,7 @@ public class ForecastResultBuilder {
         return true;
     }
 
-    private ForecastWrapper sortAndBuild(List<Forecast> forecasts) {
+    private ForecastWrapper toForecastWrapper(List<Forecast> forecasts) {
 
         if (forecasts.size() > 2) {
             throw new IllegalArgumentException("Forecasts should be lower then 2");
@@ -99,6 +99,7 @@ public class ForecastResultBuilder {
         if (forecasts.size() == 1) {
             return new ForecastWrapper(null, forecasts.get(0));
         }
+
         forecasts.sort(Comparator.comparing(Forecast::getForecastDate));
         return new ForecastWrapper(forecasts.get(0), forecasts.get(1));
     }

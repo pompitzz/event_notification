@@ -1,4 +1,4 @@
-package me.sun.notification_service.web.notification.model.slack.dto;
+package me.sun.notification_service.web.notification.slack.model;
 
 import lombok.*;
 

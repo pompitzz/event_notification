@@ -1,9 +1,9 @@
-package me.sun.notification_service.web.notification.model.common;
+package me.sun.notification_service.web.notification;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import me.sun.notification_service.web.notification.model.telegram.TelegramArguments;
-import me.sun.notification_service.web.notification.model.slack.SlackArguments;
+import me.sun.notification_service.web.notification.telegram.TelegramArguments;
+import me.sun.notification_service.web.notification.slack.SlackArguments;
 
 @Builder
 @AllArgsConstructor

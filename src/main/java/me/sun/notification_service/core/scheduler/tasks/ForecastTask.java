@@ -2,6 +2,7 @@ package me.sun.notification_service.core.scheduler.tasks;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import me.sun.notification_service.core.processor.forecast.ForecastProcessor;
 
 import java.time.LocalTime;
 

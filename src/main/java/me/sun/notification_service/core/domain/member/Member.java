@@ -1,29 +1,28 @@
 package me.sun.notification_service.core.domain.member;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 @Builder
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Member {
 
-    private String slackUrl;
-    private NotificationType notificationType;
+    @Id
+    @Column(name = "member_id")
+    @GeneratedValue
+    private Long memberId;
 
-    public String url() {
-        switch (notificationType) {
-            case SLACK:
-                return getSlackUrl();
-            default:
-                throw new IllegalArgumentException("");
-        }
-    }
-
-    private String getSlackUrl() {
-        if (StringUtils.isEmpty(slackUrl)) {
-            throw new IllegalArgumentException("");
-        }
-        return slackUrl;
-    }
+    private String username;
+    private String password;
+    private String slackTokenKey;
 }

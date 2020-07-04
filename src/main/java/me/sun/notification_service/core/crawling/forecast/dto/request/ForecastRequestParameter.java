@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
-public class ForecastRequest implements Parameterizable {
+public class ForecastRequestParameter implements Parameterizable {
     private String serviceKey;
     private Integer pageNo = 1;
     private Integer numOfRows = 100;

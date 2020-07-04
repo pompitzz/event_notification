@@ -1,4 +1,4 @@
-package me.sun.notification_service.core.domain.forecast.town;
+package me.sun.notification_service.core.domain.forecast.forecast_location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

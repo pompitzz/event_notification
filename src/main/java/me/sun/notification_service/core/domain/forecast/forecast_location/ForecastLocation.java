@@ -1,4 +1,4 @@
-package me.sun.notification_service.core.domain.forecast.town;
+package me.sun.notification_service.core.domain.forecast.forecast_location;
 
 import lombok.*;
 
@@ -11,9 +11,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class ForecastLocation {
     @Id
-    @Column(name = "town_id")
+    @Column(name = "forecast_location_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long townId;
+    private Long forecastLocationId;
     private String state;
     private String city;
     private String addressDetail;

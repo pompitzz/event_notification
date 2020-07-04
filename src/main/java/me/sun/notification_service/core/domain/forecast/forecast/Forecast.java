@@ -2,7 +2,7 @@ package me.sun.notification_service.core.domain.forecast.forecast;
 
 import lombok.*;
 import me.sun.notification_service.core.crawling.forecast.model.ForecastCategory;
-import me.sun.notification_service.core.domain.forecast.town.Town;
+import me.sun.notification_service.core.domain.forecast.forecast_location.ForecastLocation;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class Forecast {
 
     @ManyToOne
     @JoinColumn(name = "town_id")
-    private Town town;
+    private ForecastLocation forecastLocation;
 
     public String diffMeasureValue(Forecast yesterday) {
         if (Objects.isNull(yesterday)) {

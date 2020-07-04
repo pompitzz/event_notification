@@ -1,9 +1,9 @@
-package me.sun.notification_service.web.notification.model.slack;
+package me.sun.notification_service.web.notification.slack;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
-import me.sun.notification_service.web.notification.model.slack.dto.Attachment;
+import me.sun.notification_service.web.notification.slack.model.Attachment;
 
 import java.util.List;
 

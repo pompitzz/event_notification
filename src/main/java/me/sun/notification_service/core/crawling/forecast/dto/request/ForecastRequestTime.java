@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
 @RequiredArgsConstructor
-public enum ForecastTime {
+public enum ForecastRequestTime {
     TWO(LocalTime.of(2, 0)),
     FIVE(LocalTime.of(5, 0)),
     EIGHT(LocalTime.of(8, 0)),
@@ -21,23 +23,35 @@ public enum ForecastTime {
 
     private final LocalTime localTime;
 
-    public String timeString() {
-        return StringUtils.replace(localTime.toString(), ":", "");
+    public static LocalDateTime findOptimalForecastLocalDateTime(LocalDate date, LocalTime time) {
+        if (canNotTodayRequest(time)) {
+            final LocalDate minusDays = date.minusDays(1);
+            final LocalTime optimalTime = findOptimalTime(LocalTime.MIDNIGHT);
+            return LocalDateTime.of(minusDays, optimalTime);
+        }
+
+        final LocalTime optimalTime = findOptimalTime(time);
+        return LocalDateTime.of(date, optimalTime);
     }
 
-    public static ForecastTime findOptimalForecastTime(LocalTime time) {
-        if (time.isBefore(firstCanRequestTime())) {
-            throw new IllegalArgumentException("02:10 이전에는 조회가 불가능합니다.");
-        }
-        ForecastTime result = ForecastTime.TWO;
-        for (ForecastTime apiTime : ForecastTime.values()) {
+    private static boolean canNotTodayRequest(LocalTime time) {
+        return time.isBefore(firstCanRequestTime());
+    }
+
+    private static LocalTime firstCanRequestTime() {
+        return ForecastRequestTime.TWO.localTime.plusMinutes(10);
+    }
+
+    private static LocalTime findOptimalTime(LocalTime time) {
+        ForecastRequestTime result = ForecastRequestTime.TWO;
+        for (ForecastRequestTime apiTime : ForecastRequestTime.values()) {
             if (apiTime.canRequest(time)) {
                 result = apiTime;
             } else {
                 break;
             }
         }
-        return result;
+        return result.localTime;
     }
 
     private LocalTime canRequestTime() {
@@ -48,9 +62,5 @@ public enum ForecastTime {
         LocalTime canRequestTime = this.canRequestTime();
         // 요청 시간보다 크거나, 같어야 요청이 가능하다.
         return canRequestTime.compareTo(time) <= 0;
-    }
-
-    private static LocalTime firstCanRequestTime() {
-        return ForecastTime.TWO.localTime.plusMinutes(10);
     }
 }

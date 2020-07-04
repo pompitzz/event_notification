@@ -1,4 +1,4 @@
-package me.sun.notification_service.web.notification.model.telegram;
+package me.sun.notification_service.web.notification.telegram;
 
 public class TelegramArguments {
 
