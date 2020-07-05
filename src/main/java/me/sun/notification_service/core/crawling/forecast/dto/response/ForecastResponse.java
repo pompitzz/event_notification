@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @ToString
 public class ForecastResponse {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+
     private String baseDate;
     private String baseTime;
     private String category;
@@ -34,7 +36,7 @@ public class ForecastResponse {
 
     private LocalDateTime toLocalDateTime(String date, String time) {
         String dateTime = date + time;
-        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+        return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
     }
 
     public static void main(String[] args) {

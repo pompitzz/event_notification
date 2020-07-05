@@ -3,10 +3,12 @@ package me.sun.notification_service.core.scheduler.tasks;
 import me.sun.notification_service.core.domain.forecast.forecast_location.ForecastLocation;
 import me.sun.notification_service.core.domain.forecast.forecast_location.ForecastLocationRepository;
 import me.sun.notification_service.core.processor.forecast.ForecastProcessor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Disabled
 @SpringBootTest
 class ForecastProcessorTest {
 

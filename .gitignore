@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/additional_information.yml
+/src/main/resources/application-real-db.yml
+/src/main/resources/application-information.yml

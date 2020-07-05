@@ -11,6 +11,7 @@ import me.sun.notification_service.core.domain.forecast.forecast_location.Foreca
 import me.sun.notification_service.core.processor.forecast.builder.ForecastNotificationMessageBuilderImpl;
 import me.sun.notification_service.core.processor.forecast.builder.ForecastResultBuilder;
 import me.sun.notification_service.core.processor.forecast.model.ForecastResult;
+import me.sun.notification_service.web.notification.NotificationInformation;
 import me.sun.notification_service.web.notification.NotificationServiceAdapter;
 import me.sun.notification_service.web.notification.NotificationMessages;
 import me.sun.notification_service.web.notification.slack.SlackArguments;
@@ -31,8 +32,8 @@ public class ForecastProcessor {
     private final ForecastNotificationMessageBuilderImpl forecastNotificationMessageBuilderImpl;
     private final NotificationServiceAdapter notificationServiceAdapter;
 
-    public void process(ForecastRequestInfo forecastRequestInfo, ForecastLocation forecastLocation) {
-        final List<ForecastResponse> forecastResponses = forecastAdapter.request(forecastRequestInfo);
+    public void process(ForecastRequestInfo forecastRequestInfo, ForecastLocation forecastLocation, NotificationInformation notificationInformation) {
+        final List<ForecastResponse> forecastResponses = forecastAdapter.requestTodayForecast(forecastRequestInfo);
         final List<Forecast> todayForecasts = forecastQueryService.saveForecasts(forecastResponses, forecastLocation);
 
         // TODO fallback 제대로 구현하기
@@ -45,7 +46,7 @@ public class ForecastProcessor {
         final ForecastResult forecastResult = forecastResultBuilder.build(yesterdayForecasts, todayForecasts);
 
         // TODO 변경
-        final NotificationMessages notificationMessages = forecastNotificationMessageBuilderImpl.successMessageBuild(forecastResult);
+        final NotificationMessages notificationMessages = forecastNotificationMessageBuilderImpl.successMessageBuild(forecastResult, notificationInformation);
 
         final String result = notificationServiceAdapter.sendMessage(notificationMessages, forecastRequestInfo.getNotificationType());
 

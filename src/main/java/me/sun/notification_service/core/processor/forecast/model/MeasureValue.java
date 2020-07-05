@@ -18,7 +18,7 @@ public class MeasureValue {
     public String toMessage() {
         final StringBuilder message = new StringBuilder()
                 .append(category.getDescription())
-                .append(":")
+                .append(": ")
                 .append(measureValue)
                 .append(category.getUnit());
 

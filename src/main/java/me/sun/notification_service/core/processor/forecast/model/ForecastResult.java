@@ -17,9 +17,10 @@ public class ForecastResult {
     private String locationInformation;
     private LocalDate forecastDate;
     private List<TimeMeasureValue> timeMeasureValues;
+    private String token;
 
     public String getTitle() {
-        return locationInformation + " | " + forecastDate;
+        return forecastDate + " | " + locationInformation;
     }
 
     public List<MeasureValue> getRainMeasureValues() {

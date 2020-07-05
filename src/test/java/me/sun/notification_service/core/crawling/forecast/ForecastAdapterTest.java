@@ -1,16 +1,13 @@
 package me.sun.notification_service.core.crawling.forecast;
 
-import me.sun.notification_service.core.crawling.forecast.dto.request.Location;
-import me.sun.notification_service.core.crawling.forecast.dto.response.ForecastResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalTime;
-import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+@Disabled
 @SpringBootTest
 class ForecastAdapterTest {
 
@@ -26,6 +23,8 @@ class ForecastAdapterTest {
         if (time.compareTo(LocalTime.of(2, 10)) < 0) {
             return;
         }
+
+        System.out.println("test");
 
         // when
 //        final List<ForecastResponse> result = forecastAdapter.request(time, new Location("", "62", "126"), targetSize);

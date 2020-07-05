@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum ForecastCategory {
     POP("강수확률", "%"),
 //    REH("습도", "%"),
-    TMN("아침 최저기온", "°C"),
-    TMX("최고기온", "°C"),
+//    TMN("아침 최저기온", "°C"),
+//    TMX("최고기온", "°C"),
     T3H("기온", "°C"),;
 
 

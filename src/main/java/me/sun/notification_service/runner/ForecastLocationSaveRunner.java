@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Profile("dev")
 @Order(0)
 @RequiredArgsConstructor
-public class TownCreateRunner implements ApplicationRunner {
+public class ForecastLocationSaveRunner implements ApplicationRunner {
     private final ForecastLocationRepository forecastLocationRepository;
     @Override
     public void run(ApplicationArguments args) throws Exception {

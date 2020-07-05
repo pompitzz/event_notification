@@ -6,7 +6,7 @@ import me.sun.notification_service.core.processor.forecast.model.ForecastResult;
 import me.sun.notification_service.core.processor.forecast.model.MeasureValue;
 import me.sun.notification_service.core.processor.forecast.model.TimeMeasureValue;
 import me.sun.notification_service.infrastructure.utils.MessageUtils;
-import me.sun.notification_service.web.notification.NotificationMessageBuilder;
+import me.sun.notification_service.web.notification.NotificationInformation;
 import me.sun.notification_service.web.notification.slack.SlackArguments;
 import me.sun.notification_service.web.notification.slack.model.Attachment;
 import me.sun.notification_service.web.notification.slack.model.Field;
@@ -20,22 +20,22 @@ import java.util.stream.Collectors;
 public class ForecastSlackMessageBuilder implements ForecastNotificationMessageBuilder<SlackArguments> {
 
     @Override
-    public SlackArguments successMessageBuild(ForecastResult forecastResult) {
+    public SlackArguments successMessageBuild(ForecastResult forecastResult, NotificationInformation notificationInformation) {
         final Attachment mainAttachment = Attachment.from(forecastResult.getTitle(), "#36a64f");
         final Attachment rainAttachment = rainAttachment(forecastResult.highestRainPercent());
         final Attachment measureAttachment = Attachment.from(measureFields(forecastResult.getTimeMeasureValues()), "#b61549");
 
         final List<Attachment> attachments = Arrays.asList(mainAttachment, rainAttachment, measureAttachment);
         return SlackArguments.builder()
-                .token("xoxb-1175038918580-1169073439443-DxGp4cjXFZHBEzrehGLoPr2P")
+                .token(notificationInformation.getSlackToken())
                 .channel("C014S3QJQ4E")
-                .text("TEXT")
+                .text("")
                 .attachments(attachments)
                 .build();
     }
 
     private Attachment rainAttachment(double highestRainPercent) {
-        final String title = String.format("강수확률: %s%s", highestRainPercent, ForecastCategory.POP.getUnit());
+        final String title = String.format("최고 강수확률: %s%s", highestRainPercent, ForecastCategory.POP.getUnit());
         return Attachment.from(title, "#1a6d9e");
     }
 
@@ -51,15 +51,14 @@ public class ForecastSlackMessageBuilder implements ForecastNotificationMessageB
                 .filter(MeasureValue::isNotRainCategory)
                 .collect(Collectors.toList());
 
-        final String value = MessageUtils.joining("\n", isNotRainValues, MeasureValue::toMessage);
+        final String value = MessageUtils.joining(" | ", isNotRainValues, MeasureValue::toMessage);
         return Field.builder()
-                .title(title)
-                .value(value)
+                .value(title + "   |   " + value)
                 .build();
     }
 
     @Override
-    public SlackArguments failMessageBuild(ForecastLocation forecastLocation) {
+    public SlackArguments failMessageBuild(ForecastLocation forecastLocation, NotificationInformation notificationInformation) {
         // TODO 체인지 필요
         return null;
     }

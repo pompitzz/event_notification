@@ -19,9 +19,11 @@ public class NotificationEventStarter {
         final NotificationType notificationType = notificationEvent.getNotificationType();
         switch (eventType) {
             case FORECAST:
-                forecastEventStarter.start(targetTableId, notificationType);
+                forecastEventStarter.start(notificationEvent);
+                break;
             case KORAIL:
                 korailEventStarter.start(targetTableId, notificationType);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + eventType);
         }

@@ -13,6 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -33,7 +36,7 @@ public class SlackNotificationService implements NotificationService<SlackArgume
 
     private HttpHeaders createSlackApiHeader(String token) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + token);
         return headers;
     }
